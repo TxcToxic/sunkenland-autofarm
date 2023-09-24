@@ -1,0 +1,8 @@
+D:\Visual Studio\source\SunkenLand-AutoFarm\SunkenLand-AutoFarm\bin\Debug\SunkenLand-AutoFarm.exe.config
+D:\Visual Studio\source\SunkenLand-AutoFarm\SunkenLand-AutoFarm\bin\Debug\SunkenLand-AutoFarm.exe
+D:\Visual Studio\source\SunkenLand-AutoFarm\SunkenLand-AutoFarm\bin\Debug\SunkenLand-AutoFarm.pdb
+D:\Visual Studio\source\SunkenLand-AutoFarm\SunkenLand-AutoFarm\obj\Debug\SunkenLand-AutoFarm.csproj.AssemblyReference.cache
+D:\Visual Studio\source\SunkenLand-AutoFarm\SunkenLand-AutoFarm\obj\Debug\SunkenLand-AutoFarm.csproj.SuggestedBindingRedirects.cache
+D:\Visual Studio\source\SunkenLand-AutoFarm\SunkenLand-AutoFarm\obj\Debug\SunkenLand-AutoFarm.csproj.CoreCompileInputs.cache
+D:\Visual Studio\source\SunkenLand-AutoFarm\SunkenLand-AutoFarm\obj\Debug\SunkenLand-AutoFarm.exe
+D:\Visual Studio\source\SunkenLand-AutoFarm\SunkenLand-AutoFarm\obj\Debug\SunkenLand-AutoFarm.pdb
