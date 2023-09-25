@@ -1,10 +1,65 @@
-﻿using System;
+﻿using SunkenlandAutoFarm;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 
+class Logos
+{
+    public static string Main()
+    {
+        string logo = @"███████╗██╗   ██╗███╗   ██╗██╗  ██╗███████╗███╗   ██╗██╗      █████╗ ███╗   ██╗██████╗ 
+██╔════╝██║   ██║████╗  ██║██║ ██╔╝██╔════╝████╗  ██║██║     ██╔══██╗████╗  ██║██╔══██╗
+███████╗██║   ██║██╔██╗ ██║█████╔╝ █████╗  ██╔██╗ ██║██║     ███████║██╔██╗ ██║██║  ██║
+╚════██║██║   ██║██║╚██╗██║██╔═██╗ ██╔══╝  ██║╚██╗██║██║     ██╔══██║██║╚██╗██║██║  ██║
+███████║╚██████╔╝██║ ╚████║██║  ██╗███████╗██║ ╚████║███████╗██║  ██║██║ ╚████║██████╔╝
+╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ 
+                                                                                       ";
+        return logo;
+    }
+
+    public static string Steel()
+    {
+        string logo = @"███████╗██╗                   ███████╗████████╗███████╗███████╗██╗     
+██╔════╝██║                   ██╔════╝╚══██╔══╝██╔════╝██╔════╝██║     
+███████╗██║         █████╗    ███████╗   ██║   █████╗  █████╗  ██║     
+╚════██║██║         ╚════╝    ╚════██║   ██║   ██╔══╝  ██╔══╝  ██║     
+███████║███████╗              ███████║   ██║   ███████╗███████╗███████╗
+╚══════╝╚══════╝              ╚══════╝   ╚═╝   ╚══════╝╚══════╝╚══════╝
+                                                                       ";
+        return logo;
+    }
+    public static string Copper_Iron()
+    {
+        string logo = @"███████╗██╗                   ██╗██████╗  ██████╗ ███╗   ██╗        ██╗     ██████╗ ██████╗ ██████╗ ██████╗ ███████╗██████╗ 
+██╔════╝██║                   ██║██╔══██╗██╔═══██╗████╗  ██║       ██╔╝    ██╔════╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗
+███████╗██║         █████╗    ██║██████╔╝██║   ██║██╔██╗ ██║      ██╔╝     ██║     ██║   ██║██████╔╝██████╔╝█████╗  ██████╔╝
+╚════██║██║         ╚════╝    ██║██╔══██╗██║   ██║██║╚██╗██║     ██╔╝      ██║     ██║   ██║██╔═══╝ ██╔═══╝ ██╔══╝  ██╔══██╗
+███████║███████╗              ██║██║  ██║╚██████╔╝██║ ╚████║    ██╔╝       ╚██████╗╚██████╔╝██║     ██║     ███████╗██║  ██║
+╚══════╝╚══════╝              ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝    ╚═╝         ╚═════╝ ╚═════╝ ╚═╝     ╚═╝     ╚══════╝╚═╝  ╚═╝
+                                                                                                                            ";
+        return logo;
+    }
+
+    public static string Sawmill()
+    {
+        string logo = @"███████╗██╗                   ███████╗ █████╗ ██╗    ██╗███╗   ███╗██╗██╗     ██╗     
+██╔════╝██║                   ██╔════╝██╔══██╗██║    ██║████╗ ████║██║██║     ██║     
+███████╗██║         █████╗    ███████╗███████║██║ █╗ ██║██╔████╔██║██║██║     ██║     
+╚════██║██║         ╚════╝    ╚════██║██╔══██║██║███╗██║██║╚██╔╝██║██║██║     ██║     
+███████║███████╗              ███████║██║  ██║╚███╔███╔╝██║ ╚═╝ ██║██║███████╗███████╗
+╚══════╝╚══════╝              ╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝     ╚═╝╚═╝╚══════╝╚══════╝
+                                                                                      ";
+        return logo;
+    }
+}
 
 class Farms
 {
+    private static bool steelFuranceRunning = false;
+    private static bool ironCopperFuranceRunning = false;
+    private static bool sawmillRunning = false;
+
+
     [DllImport("user32.dll")]
     public static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
@@ -15,46 +70,134 @@ class Farms
 
     public static void SteelFurance()
     {
-        int cfKeyPressCount = 0;
+        steelFuranceRunning = true;
 
-        while (true)
+        Console.Clear();
+        Console.WindowWidth = 125;
+        Console.WriteLine(Logos.Steel());
+        Console.WriteLine("10 Steel = ~15 Minutes" + Environment.NewLine);
+
+        int cfKeyPressCount = 0;
+        int produced = 0; // See how much you produced
+        int timeout = 91; // The seconds to wait before clicking again
+        int timeout_bkp = timeout; // backup | to make the code more soft
+
+        while (steelFuranceRunning)
         {
             if (cfKeyPressCount < 6)
             {
-                PressKey(VK_F);
+                // Pressing Buttons
+                PressKey(VK_F); 
                 PressKey(VK_C);
                 PressKey(VK_C);
+                // Increasing Counter
                 cfKeyPressCount++;
+                // Just useless printing
+                Console.Write($"\r{cfKeyPressCount} times clicked".PadRight(50) + "| Status: Clicking...");
             }
             else
             {
-                Thread.Sleep(91000);
-                cfKeyPressCount = 0;
+                produced++;
+
+                // Showing live timeout
+                while (timeout > 0) {
+                    if (!steelFuranceRunning)
+                    {
+                        break;
+                    }
+
+                    Console.Write($"\r{produced} Steel Produced".PadRight(50) + $"| Status: Waiting... | Clicking in {timeout}s" + "".PadRight(5)); // The \r is for Updating / Rewrite the full line
+                    Thread.Sleep(1000);
+                    timeout--;
+                }
+
+                timeout = timeout_bkp;
+                cfKeyPressCount = 0; // Reset Counter
             }
         }
     }
 
-    public static void IronFurance()
+    public static void Iron_CopperFurance()
     {
-        while (true)
+        ironCopperFuranceRunning = true;
+
+        Console.Clear();
+        Console.WindowWidth = 125;
+        Console.WriteLine(Logos.Copper_Iron());
+        Console.WriteLine("10 Iron/Copper = ~5 Minutes" + Environment.NewLine);
+
+        int produced = 0; // See how much you produced
+        int timeout = 31; // The seconds to wait before clicking again
+        int timeout_bkp = timeout; // backup | to make the code more soft
+
+        while (ironCopperFuranceRunning)
         {
             PressKey(VK_F);
             PressKey(VK_F);
             PressKey(VK_C);
             PressKey(VK_C);
-            Thread.Sleep(31000);
+            
+            produced++;
+
+            // Showing live timeout
+            while (timeout > 0)
+            {
+                if (!ironCopperFuranceRunning)
+                {
+                    break;
+                }
+
+                Console.Write($"\r{produced} Bars Produced".PadRight(50) + $"| Status: Waiting... | Clicking in {timeout}s" + "".PadRight(5)); // The \r is for Updating / Rewrite the full line
+                Thread.Sleep(1000);
+                timeout--;
+            }
+
+            timeout = timeout_bkp;
         }
     }
 
-    public static void CopperFurance()
+    public static void Sawmill()
     {
-        while (true)
+        sawmillRunning = true;
+
+        Console.Clear();
+        Console.WindowWidth = 125;
+        Console.WriteLine(Logos.Sawmill());
+        Console.WriteLine("10 Fine Woodplanks = ~5 Minutes" + Environment.NewLine);
+
+        int fKeyPressCount = 0;
+        int produced = 0; // See how much you produced
+        int timeout = 31; // The seconds to wait before clicking again
+        int timeout_bkp = timeout; // backup | to make the code more soft
+
+        while (sawmillRunning)
         {
-            PressKey(VK_F);
-            PressKey(VK_F);
-            PressKey(VK_C);
-            PressKey(VK_C);
-            Thread.Sleep(31000);
+            if (fKeyPressCount < 6)
+            {
+                PressKey(VK_F);
+                fKeyPressCount++;
+                Console.Write($"\r{fKeyPressCount} times clicked".PadRight(50) + "| Status: Clicking...");
+            }
+            else
+            {
+                produced++;
+
+                // Showing live timeout
+                while (timeout > 0)
+                {
+                    if (!sawmillRunning)
+                    {
+                        break;
+                    }
+
+                    Console.Write($"\r{produced} Steel Produced".PadRight(50) + $"| Status: Waiting... | Clicking in {timeout}s" + "".PadRight(5)); // The \r is for Updating / Rewrite the full line
+                    Thread.Sleep(1000);
+                    timeout--;
+                }
+
+                timeout = timeout_bkp;
+                fKeyPressCount = 0; // Reset Counter
+            }
         }
     }
 
@@ -64,23 +207,51 @@ class Farms
         Thread.Sleep(lenght);
         keybd_event(keyCode, 0, KEYEVENTF_KEYUP, 0);
     }
+
+    public static void StopAllFarms()
+    {
+        steelFuranceRunning = false;
+        ironCopperFuranceRunning = false;
+        sawmillRunning = false;
+    }
+}
+
+class Handles
+{
+    public static void HandleCtrlC(object sender, ConsoleCancelEventArgs e)
+    {
+        Farms.StopAllFarms();
+        Environment.Exit(0);
+    }
 }
 
 namespace SunkenlandAutoFarm
 {
     internal class Program
     {
-        static void Main()
+        internal static void Main()
         {
-            Console.WriteLine("[1] Steel Furance    [2] Iron Furance    [3] Coppper Furance");
+            Console.Clear();
+            Console.WriteLine(Logos.Main());
+            Console.WindowWidth = 87;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("IF YOU'RE DONE FARMING PRESS CTRL + C" + Environment.NewLine);
+            Console.ResetColor();
+            Console.WriteLine("[1] Steel Furance    [2] Iron/Coppper Furance    [3] Sawmill");
             ConsoleKeyInfo key = Console.ReadKey();
             int timer = 5;
+            int timer_bkp = timer;
+
             while (timer > 0)
             {
                 Console.Write($"\rStarting in {timer} seconds...");
                 Thread.Sleep(1000);
                 timer--;
             }
+
+            Console.CancelKeyPress += Handles.HandleCtrlC;
+
+            timer = timer_bkp;
             
             if (key.Key == ConsoleKey.D1)
             {
@@ -88,12 +259,13 @@ namespace SunkenlandAutoFarm
             }
             else if (key.Key == ConsoleKey.D2) 
             { 
-                Farms.IronFurance();
+                Farms.Iron_CopperFurance();
             }
             else if (key.Key == ConsoleKey.D3)
             {
-                Farms.CopperFurance();
+                Farms.Sawmill();
             }
+            else { Console.WriteLine("Invalid Key"); }
         }
         
     }
